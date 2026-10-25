@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>装修施工中</title>
+    <link rel="stylesheet" href="./generating.css" />
+  </head>
+  <body>
+    <main class="generation-screen" aria-label="装修施工中页面">
+      <header class="generation-header">
+        <div class="generation-status" aria-hidden="true">
+          <time>9:41</time>
+          <span>
+            <img src="./assets/status-cellular.svg" alt="" />
+            <img src="./assets/status-wifi.svg" alt="" />
+            <img src="./assets/status-battery.svg" alt="" />
+          </span>
+        </div>
+        <nav class="generation-nav">
+          <button aria-label="返回"><img src="./assets/nav-back.svg" alt="" /></button>
+          <h1>确认装修效果</h1>
+        </nav>
+      </header>
+
+      <section class="generation-stage" aria-live="polite">
+        <div class="generation-carousel">
+          <section class="generation-scene scene-head" aria-label="正在生成头图">
+            <p class="generation-title" aria-label="头图施工中"><span>头图施工中</span><span class="animated-ellipsis" aria-hidden="true"></span></p>
+            <div class="motion-window">
+              <article class="building-card">
+                <div class="building-images" aria-label="正在生成三张头图">
+                  <span class="building-light" aria-hidden="true"></span>
+                  <span class="building-image building-image-one"></span>
+                  <span class="building-image building-image-two"></span>
+                  <span class="building-image building-image-three"></span>
+                </div>
+                <div class="building-details">
+                  <div class="building-primary-row">
+                    <span class="skeleton-block skeleton-title"></span>
+                    <span class="skeleton-block skeleton-button"></span>
+                  </div>
+                  <div class="building-rating" aria-hidden="true">
+                    <span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span>
+                  </div>
+                  <span class="skeleton-block skeleton-line-long"></span>
+                  <span class="skeleton-block skeleton-line-medium"></span>
+                  <div class="building-bottom-row">
+                    <div>
+                      <span class="skeleton-block skeleton-line-short"></span>
+                      <span class="skeleton-block skeleton-line-tiny"></span>
+                    </div>
+                    <span class="skeleton-circle"></span>
+                    <span class="skeleton-circle"></span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="generation-scene scene-external" aria-label="正在生成外显小图">
+            <p class="generation-title" aria-label="外显小图施工中"><span>外显小图施工中</span><span class="animated-ellipsis" aria-hidden="true"></span></p>
+            <div class="motion-window">
+              <article class="external-card">
+                <div class="external-image" aria-hidden="true"></div>
+                <div class="external-details">
+                  <div class="external-top-row">
+                    <span class="skeleton-block external-title"></span>
+                    <span class="skeleton-block external-distance"></span>
+                  </div>
+                  <div class="building-rating external-rating" aria-hidden="true">
+                    <span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span>
+                  </div>
+                  <span class="skeleton-block external-line"></span>
+                  <div class="external-tags">
+                    <span class="skeleton-block"></span>
+                    <span class="skeleton-block"></span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="generation-scene scene-recommend" aria-label="正在生成推荐菜">
+            <p class="generation-title" aria-label="推荐菜施工中"><span>推荐菜施工中</span><span class="animated-ellipsis" aria-hidden="true"></span></p>
+            <div class="motion-window">
+              <article class="recommendation-card" aria-label="正在生成推荐菜卡片">
+                <div class="recommendation-heading">
+                  <img src="./assets/recommendation-heading.png" alt="用户推荐菜(20)" />
+                  <span class="skeleton-block"></span>
+                </div>
+                <div class="recommendation-strip">
+                  <div class="recommendation-item"><span></span><i></i></div>
+                  <div class="recommendation-item"><span></span><i></i></div>
+                  <div class="recommendation-item"><span></span><i></i></div>
+                  <div class="recommendation-item"><span></span><i></i></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="generation-scene scene-album" aria-label="正在生成相册">
+            <p class="generation-title" aria-label="相册施工中"><span>相册施工中</span><span class="animated-ellipsis" aria-hidden="true"></span></p>
+            <div class="motion-window">
+              <article class="album-card" aria-label="正在生成相册图片">
+                <span class="album-tile"><img src="./assets/album-sparkle.svg" alt="" /></span>
+                <span class="album-tile"><img src="./assets/album-sparkle.svg" alt="" /></span>
+                <span class="album-tile"><img src="./assets/album-sparkle.svg" alt="" /></span>
+                <span class="album-tile"><img src="./assets/album-sparkle.svg" alt="" /></span>
+              </article>
+            </div>
+          </section>
+        </div>
+
+      </section>
+
+      <p class="generation-note">生成时间大约1分钟，您可随时<button class="home-link">返回首页</button></p>
+      <div class="home-indicator" aria-hidden="true"><span></span></div>
+    </main>
+  </body>
+</html>

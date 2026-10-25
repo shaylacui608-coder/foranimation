@@ -2,4 +2,6 @@
 
 375 × 812 的静态网页预览，依次展示头图、外显小图、推荐菜和相册的生成过程。
 
-直接打开 `index.html` 即可预览。发布到 GitHub Pages 后，仓库首页就是动效页面。
+在线预览：[装修生成动效](https://foranimation-375.shayla668.chatgpt.site)。
+
+也可以在本地直接打开 `index.html` 预览。

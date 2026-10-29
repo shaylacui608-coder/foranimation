@@ -4,4 +4,6 @@
 
 在线预览：[装修生成动效](https://shaylacui608-coder.github.io/foranimation/)。
 
+确认装修效果页面：[375 × 812 交互预览](https://shaylacui608-coder.github.io/foranimation/preview/)。
+
 也可以在本地直接打开 `index.html` 预览。

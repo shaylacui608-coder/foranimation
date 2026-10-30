@@ -1137,8 +1137,8 @@ body {
 .compare-button.active { background: #eaf1ff; border-color: #387aff; }
 .compare-button.active { font-size: 13px; font-weight: 500; color: #387aff; }
 .before-photo > img {
-  filter: brightness(.74) contrast(.86) saturate(.72) hue-rotate(-5deg);
-  transform: scale(1.055) rotate(-1deg);
+  filter: none;
+  transform: none;
 }
 .album-item > img,
 .dish-card > img { transition: filter .24s ease, transform .24s ease, opacity .18s ease; }

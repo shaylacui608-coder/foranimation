@@ -1,5 +1,5 @@
 const asset = (name) => `../preview/assets/${name.replace('.png', '.webp')}`;
-const beforeAsset = (name) => `./assets/${name}`;
+const beforeAsset = (name) => `./assets/${name}?v=3`;
 const tabs = [...document.querySelectorAll('.step')];
 const panels = [...document.querySelectorAll('.phone-panel')];
 const device = document.querySelector('.device');

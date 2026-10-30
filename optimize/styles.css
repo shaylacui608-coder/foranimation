@@ -1135,11 +1135,13 @@ body {
   touch-action: none;
 }
 .compare-button.active { background: #eaf1ff; border-color: #387aff; }
-.light-optimized > img,
-.opt-option.light-optimized > img {
-  filter: brightness(1.13) contrast(.96) saturate(.9) sepia(.025);
+.compare-button.active { font-size: 13px; font-weight: 500; color: #387aff; }
+.before-photo > img {
+  filter: brightness(.74) contrast(.86) saturate(.72) hue-rotate(-5deg);
+  transform: scale(1.055) rotate(-1deg);
 }
-.light-optimized > img { transition: filter .22s ease; }
+.album-item > img,
+.dish-card > img { transition: filter .24s ease, transform .24s ease, opacity .18s ease; }
 
 .edit-sheet { top: 496px; height: 316px; background: #f7f9fc; }
 .edit-sheet[data-mode="head"] { top: 456px; height: 356px; }

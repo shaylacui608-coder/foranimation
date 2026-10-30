@@ -1,4 +1,5 @@
-const asset = (name) => `../preview/assets/${name}`;
+const asset = (name) => `../preview/assets/${name.replace('.png', '.webp')}`;
+const beforeAsset = (name) => `./assets/${name}`;
 const tabs = [...document.querySelectorAll('.step')];
 const panels = [...document.querySelectorAll('.phone-panel')];
 const device = document.querySelector('.device');
@@ -8,17 +9,19 @@ const title = document.querySelector('.edit-title');
 const hero = document.querySelector('.hero-banner-triptych');
 const albumItems = [...document.querySelectorAll('.album-item')];
 const dishCards = [...document.querySelectorAll('.dish-card')];
-const originalHead = [asset('album-01.webp'), asset('album-05.webp'), asset('album-03.webp')];
-const headOptions = [asset('head-option-1.webp'), asset('head-option-2.webp'), asset('head-option-3.webp')];
+const originalHead = [asset('album-01.png'), asset('album-05.png'), asset('album-03.png')];
+const headOptions = [asset('head-option-1.png'), asset('head-option-2.png'), asset('head-option-3.png')];
 const albumPhotos = albumItems.map((item) => item.querySelector('img').getAttribute('src'));
 const dishPhotos = dishCards.map((item) => item.querySelector('img').getAttribute('src'));
+const albumBefore = albumPhotos.map((_, index) => index < 4 ? beforeAsset(`before-album-0${index + 1}.jpg`) : null);
+const dishBefore = dishPhotos.map((_, index) => beforeAsset(`before-dish-${['baguette', 'croissant', 'sandwich', 'tripe'][index]}.jpg`));
 
 const state = {
   tab: '头图',
   visited: new Set(['头图']),
   headChoice: 0,
-  albumOptimized: albumPhotos.map((_, index) => index === 1),
-  dishOptimized: dishPhotos.map(() => false),
+  albumOptimized: albumPhotos.map((_, index) => index < 4),
+  dishOptimized: dishPhotos.map(() => true),
   activeAlbum: 0,
   activeDish: 0,
   comparing: false,
@@ -36,10 +39,14 @@ function renderPreview() {
     hero.style.setProperty('--art-height', '100%');
   }
   albumItems.forEach((item, index) => {
-    item.classList.toggle('light-optimized', !state.comparing && state.albumOptimized[index]);
+    const showBefore = Boolean(albumBefore[index]) && (state.comparing || !state.albumOptimized[index]);
+    item.querySelector('img').src = showBefore ? albumBefore[index] : albumPhotos[index];
+    item.classList.toggle('before-photo', showBefore);
   });
   dishCards.forEach((item, index) => {
-    item.classList.toggle('light-optimized', !state.comparing && state.dishOptimized[index]);
+    const showBefore = state.comparing || !state.dishOptimized[index];
+    item.querySelector('img').src = showBefore ? dishBefore[index] : dishPhotos[index];
+    item.classList.toggle('before-photo', showBefore);
   });
 }
 
@@ -82,14 +89,15 @@ function renderCompareSheet(kind) {
   const isAlbum = kind === 'album';
   const sources = isAlbum ? albumPhotos : dishPhotos;
   const optimized = isAlbum ? state.albumOptimized : state.dishOptimized;
+  const before = isAlbum ? albumBefore : dishBefore;
   const activeIndex = isAlbum ? state.activeAlbum : state.activeDish;
   const labels = isAlbum ? ['面包', '店内陈列', '店内环境', '门店外景', '面包包装', '店内陈列', '门店图片', '门店图片', '门店图片', '门店图片'] : ['法式面包', '可颂', '美式三明治', '火锅毛肚'];
   const thumbnails = sources.slice(0, isAlbum ? 4 : 4).map((source, index) => `<button class="opt-source-thumb ${activeIndex === index ? 'active' : ''}" type="button" data-source="${index}" aria-label="编辑${labels[index]}"><img src="${source}" alt="" />${optimized[index] ? '<span class="thumb-check">✓</span>' : ''}</button>`).join('');
   sheetBody.innerHTML = `<div class="opt-compare-content">
     <div class="opt-source-strip">${thumbnails}</div>
     <div class="opt-compare-pair" aria-label="原图与优化后对比">
-      ${optionButton(sources[activeIndex], '你的原图', !optimized[activeIndex], 0, 'compare-option')}
-      ${optionButton(sources[activeIndex], '优化后', optimized[activeIndex], 1, 'compare-option light-optimized')}
+      ${optionButton(before[activeIndex] || sources[activeIndex], '你的原图', !optimized[activeIndex], 0, 'compare-option before-photo')}
+      ${optionButton(sources[activeIndex], '优化后', optimized[activeIndex], 1, 'compare-option')}
     </div>
   </div>`;
   sheetBody.querySelectorAll('.opt-source-thumb').forEach((button) => button.addEventListener('click', () => {
@@ -111,6 +119,7 @@ function renderSheet() {
 }
 
 function setEditing(open) {
+  if (open) setComparing(false);
   device.classList.toggle('editing', open);
   sheet.setAttribute('aria-hidden', String(!open));
   if (open) {
@@ -125,6 +134,7 @@ function setEditing(open) {
 
 tabs.forEach((tab) => tab.addEventListener('click', () => {
   if (device.classList.contains('editing')) setEditing(false);
+  setComparing(false);
   selectTab(tab.dataset.tab);
 }));
 document.querySelector('.edit-button').addEventListener('click', () => setEditing(true));
@@ -143,18 +153,12 @@ const compareButton = document.querySelector('.compare-button');
 function setComparing(active) {
   state.comparing = active;
   compareButton.classList.toggle('active', active);
+  compareButton.setAttribute('aria-pressed', String(active));
+  compareButton.setAttribute('aria-label', active ? '恢复优化后效果' : '查看优化前原图');
+  compareButton.textContent = active ? '原图' : '◧';
   renderPreview();
 }
-compareButton.addEventListener('pointerdown', (event) => {
-  compareButton.setPointerCapture(event.pointerId);
-  setComparing(true);
-});
-compareButton.addEventListener('pointerup', () => setComparing(false));
-compareButton.addEventListener('pointercancel', () => setComparing(false));
-compareButton.addEventListener('keydown', (event) => {
-  if (event.key === ' ' || event.key === 'Enter') setComparing(true);
-});
-compareButton.addEventListener('keyup', () => setComparing(false));
+compareButton.addEventListener('click', () => setComparing(!state.comparing));
 
 let swipeStartX = null;
 const preview = document.querySelector('.preview-area');
@@ -187,4 +191,4 @@ document.querySelector('.review-button').addEventListener('click', () => {
 });
 
 selectTab('头图', false);
-renderPreview();
+setComparing(false);
